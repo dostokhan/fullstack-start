@@ -1,11 +1,11 @@
 version: "3"
 
 services:
-  nginx-fullstack:
+  nginx:
     volumes:
       - ./certs/local:/etc/nginx/certs:ro
 
-  nginx-gen-fullstack:
+  nginx-gen:
     volumes:
       - ./certs/local:/etc/nginx/certs:ro
 

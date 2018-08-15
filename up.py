@@ -10,10 +10,10 @@ args = parser.parse_args()
 #  createNetwork = 'docker network ls|grep fullstack > /dev/null || docker network create fullstack'
 #  subprocess.check_output(['bash','-c', createNetwork])
 
-if args.isProduction == 'production':
-    startProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d'
-else:
-    startProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d'
+#  if args.isProduction == 'production':
+#      startProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d'
+#  else:
+startProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d'
 
 subprocess.check_output(['bash', '-c', startProxyContainers])
 
