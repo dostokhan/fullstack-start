@@ -12,17 +12,17 @@ openssl req -x509 -key ca.key -out ca.crt \
     -subj "/CN=$org/O=$org"
 
 
-openssl genpkey -algorithm RSA -out "$domain1".key
-openssl req -new -key "$domain1".key -out "$domain1".csr \
-    -subj "/CN=$domain1/O=$org"
+openssl genpkey -algorithm RSA -out "$domain".key
+openssl req -new -key "$domain".key -out "$domain".csr \
+    -subj "/CN=$domain/O=$org"
 
-openssl x509 -req -in "$domain1".csr -days 365 -out "$domain1".crt \
+openssl x509 -req -in "$domain".csr -days 365 -out "$domain".crt \
     -CA ca.crt -CAkey ca.key -CAcreateserial \
     -extfile <(cat <<END
 basicConstraints = CA:FALSE
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid,issuer
-subjectAltName = DNS:$domain1
+subjectAltName = DNS:$domain
 END
     )
 
