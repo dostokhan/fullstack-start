@@ -1,26 +1,19 @@
 #!/usr/bin/env python
 
 import subprocess
-import sys
-isProduction = sys.argv[1]
+import argparse
 
-#  removeNetwork = 'docker network ls|grep fullstack > /dev/null && docker network rm fullstack'
-#  subprocess.check_output(['bash','-c', removeNetwork])
+parser = argparse.ArgumentParser()
+parser.add_argument("-isProduction", help="Run in Production Config", default="development")
+args = parser.parse_args()
 
-if isProduction == 'production':
+if args.isProduction == 'production':
     print("Production Config")
-    startProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.production.yml down -d'
-    subprocess.check_output(startProxyContainers.split())
+    stopProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.production.yml down -d'
 else:
     print("Development Config")
-    startProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.override.yml down -d'
-    subprocess.check_output(startProxyContainers.split())
+    stopProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.override.yml down -d'
 
 
-
-#  print('Stopping Frontend')
-#  import('./frontend/down')
-
-#  echo "Stopping Backend"
-#  import ./backend/down
+subprocess.check_output(['bash', '-c', stopProxyContainers])
 

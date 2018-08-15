@@ -46,6 +46,9 @@ python init-project.py
 # 4. ./up.py
 # 5. ./down.py
 # 6. ./log.py
+# 7. ./backend/docker-compose.yml
+# 8. ./backend/docker-compose.override.yml
+# 9. ./backend/docker-compose.production.yml
 
 
 # Start development containers

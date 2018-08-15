@@ -32,6 +32,9 @@ if (confirmed == 'y'):
         './up.py',
         './down.py',
         './log.py',
+        './backend/docker-compose.yml',
+        './backend/docker-compose.override.yml',
+        './backend/docker-compose.production.yml',
     ]
     for filename in fileList:
         replaceStrInFile(filename, PROJECT_NAME_PLACEHOLDER, projectName)
