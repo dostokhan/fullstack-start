@@ -2,9 +2,10 @@
 
 import subprocess
 import argparse
-import os
+from os.path import dirname, abspath
+from os import chdir
 
-os.chdir('../')
+chdir(dirname(dirname(abspath(__file__))))
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-isProduction", help="Run in Production Config", default="development")
@@ -22,8 +23,8 @@ subprocess.check_output(['bash', '-c', startProxyContainers])
 
 
 #  print('Starting Frontend')
-#  import ./frontend/up
+#  import ./frontend/scripts/up
 
 #  print('Starting Backend')
-#  import ./backend/up
+#  import('./backend/scripts/up')
 

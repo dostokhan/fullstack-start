@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 import subprocess
-import os
+from os.path import dirname, abspath
+from os import chdir
 
-os.chdir('../')
+chdir(dirname(dirname(abspath(__file__))))
 
 
 showLog = 'docker-compose logs --follow nginx-gen'

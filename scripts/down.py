@@ -2,9 +2,10 @@
 
 import subprocess
 import argparse
-import os
+from os.path import dirname, abspath
+from os import chdir
 
-os.chdir('../')
+chdir(dirname(dirname(abspath(__file__))))
 
 
 parser = argparse.ArgumentParser()
