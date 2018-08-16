@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 set -eu
 org=localhost-ca
-# domain1=local.www.imonir.com
-# domain2=local.api.imonir.com
-domain=local.fullstack.imonir.com
-
-sudo trust anchor --remove ca.crt || true
-
-openssl genpkey -algorithm RSA -out ca.key
-openssl req -x509 -key ca.key -out ca.crt \
-    -subj "/CN=$org/O=$org"
+# domain=local.www.imonir.com
+domain=local.fullstackapi.imonir.com
 
 
 openssl genpkey -algorithm RSA -out "$domain".key
@@ -25,5 +18,3 @@ authorityKeyIdentifier = keyid,issuer
 subjectAltName = DNS:$domain
 END
     )
-
-sudo trust anchor ca.crt
