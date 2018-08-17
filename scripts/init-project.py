@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
-from os.path import dirname, abspath
-from os import chdir
+import utils
 
-chdir(dirname(dirname(abspath(__file__))))
+utils.goToParentDir()
 
 
 PROJECT_NAME_PLACEHOLDER = 'imonir'

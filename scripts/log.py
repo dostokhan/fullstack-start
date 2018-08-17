@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 
 import subprocess
-from os.path import dirname, abspath
-from os import chdir
+import utils
 
-chdir(dirname(dirname(abspath(__file__))))
-
+utils.goToParentDir()
 
 showLog = 'docker-compose logs --follow nginx-gen'
-
 subprocess.call(['bash', '-c', showLog])
