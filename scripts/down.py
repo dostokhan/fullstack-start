@@ -19,6 +19,6 @@ call(stopProxyContainers.split())
 print('Stopping Backend')
 call(['python', './backend/scripts/down.py'])
 
-#  print('Stopping Frontend')
-#  call(['python', './frontend/scripts/down.py'])
+print('Stopping Frontend')
+call(['python', './frontend/scripts/down.py'])
 

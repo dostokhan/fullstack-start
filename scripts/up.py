@@ -20,7 +20,7 @@ call(startProxyContainers.split())
 print('Starting Backend')
 call(['python', './backend/scripts/up.py'])
 
-#  print('Starting Frontend')
-#  import ./frontend/scripts/up
+print('Starting Frontend')
+call(['python', './frontend/scripts/down.py'])
 
 
