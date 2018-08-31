@@ -17,10 +17,11 @@ print("Development Config")
 startProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d'
 call(startProxyContainers.split())
 
-print('Starting Backend')
-call(['python', './backend/scripts/up.py'])
+# only in production run these from respective submodules
+#  print('Starting Backend')
+#  call(['python', './backend/scripts/up.py'])
 
-print('Starting Frontend')
-call(['python', './frontend/scripts/up.py'])
+#  print('Starting Frontend')
+#  call(['python', './frontend/scripts/up.py'])
 
 
