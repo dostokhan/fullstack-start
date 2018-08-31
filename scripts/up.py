@@ -21,6 +21,6 @@ print('Starting Backend')
 call(['python', './backend/scripts/up.py'])
 
 print('Starting Frontend')
-call(['python', './frontend/scripts/down.py'])
+call(['python', './frontend/scripts/up.py'])
 
 
