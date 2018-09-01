@@ -1,48 +1,61 @@
 #!/usr/bin/env python
 
+#  import subprocess
 import utils
+from os import system, chdir, path
 
 utils.goToParentDir()
 
 
-PROJECT_NAME_PLACEHOLDER = 'imonir'
-
-def replaceStrInFile(filename, oldString, newString):
-    # Safely read the input filename using 'with'
-    with open(filename) as f:
-        s = f.read()
-        if oldString not in s:
-            print('"{oldString}" not found in {filename}.'.format(**locals()))
-            return
-
-    # Safely write the changed content, if found in the file
-    with open(filename, 'w') as f:
-        print('Changing "{oldString}" to "{newString}" in {filename}'.format(**locals()))
-        s = s.replace(oldString, newString)
-        f.write(s)
+PROJECT_NAME_PLACEHOLDER = 'fullstack'
+DOCKER_CONFIG_FILES = [
+    './docker-compose.yml',
+    './docker-compose.override.yml',
+    './docker-compose.production.yml',
+]
 
 
 # initiate project with desired name
-projectName =  input('Project Name: ')
-print('You entered: ' + str(projectName))
+projectName = input('Project Name: ')
+domainName = input('Domain Name (something.something.something): ')
+emailAddress = input('Email (for use with letsencrypt): ')
 
-confirmed = input('y/n?: ')
-print('confimred: ' + str(confirmed))
+print("\nProjectName: " + str(projectName))
+print('DomainName: ' + str(domainName))
+print('Email: ' + str(emailAddress))
+confirmed = input('Confirm y/n?: ')
 
 if (confirmed == 'y'):
-    fileList = [
-        './docker-compose.yml',
-        './docker-compose.override.yml',
-        './docker-compose.production.yml',
-        './up.py',
-        './down.py',
-        './log.py',
-        './backend/docker-compose.yml',
-        './backend/docker-compose.override.yml',
-        './backend/docker-compose.production.yml',
-    ]
-    for filename in fileList:
-        replaceStrInFile(filename, PROJECT_NAME_PLACEHOLDER, projectName)
-else:
-    print('Ok')
 
+    print("\nChange projectName in docker compose files so containers are named after projectName")
+    for filename in DOCKER_CONFIG_FILES:
+        utils.replaceStrInFile(filename, PROJECT_NAME_PLACEHOLDER, projectName)
+
+    print("\nGenerate SSL certificates for local development")
+    # check if local CA already exits ?
+    chdir('./certs/local/')
+    if ( not path.isfile('ca.crt') or
+        not path.isfile('ca.key') or
+        not path.isfile('ca.srl')
+        ):
+        print('Creating local CA files')
+        system('./create-local-ca.sh')
+    # create ssl certificate for domainName
+    system(f"./create-local-cert.sh local.{domainName}")
+    system(f"./create-local-cert.sh local.api.{domainName}")
+
+    # got to project root
+    utils.goToParentDir()
+
+    print("\nRun frontend Init script:")
+    chdir('./frontend/scripts')
+    frontendInitCommand= f"./init-project.py {projectName} {domainName} {emailAddress}"
+    system(frontendInitCommand)
+
+    print('\nRun backend Init script');
+    chdir('./backend/scripts')
+    backendInitCommand= './init-project.py ' + str(projectName) + ' ' + str(domainName)
+    system(backendInitCommand)
+
+else:
+    print('Later then.')

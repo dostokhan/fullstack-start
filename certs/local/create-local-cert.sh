@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
 set -eu
 org=localhost-ca
-# domain=local.www.imonir.com
-domain=local.fullstackapi.imonir.com
 
+openssl genpkey -algorithm RSA -out "$1".key
+openssl req -new -key "$1".key -out "$1".csr \
+    -subj "/CN=$1/O=$org"
 
-openssl genpkey -algorithm RSA -out "$domain".key
-openssl req -new -key "$domain".key -out "$domain".csr \
-    -subj "/CN=$domain/O=$org"
-
-openssl x509 -req -in "$domain".csr -days 365 -out "$domain".crt \
+openssl x509 -req -in "$1".csr -days 365 -out "$1".crt \
     -CA ca.crt -CAkey ca.key -CAcreateserial \
     -extfile <(cat <<END
 basicConstraints = CA:FALSE
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid,issuer
-subjectAltName = DNS:$domain
+subjectAltName = DNS:$1
 END
     )
