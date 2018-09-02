@@ -64,7 +64,7 @@ This starts [nginx](https://hub.docker.com/_/nginx/), [docker-gen](https://githu
 ├── README.md
 ```
 
-### Quick Start
+## Quick Start
 
 ```bash
 # Clone the repository
