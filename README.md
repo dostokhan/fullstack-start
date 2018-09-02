@@ -10,7 +10,7 @@ Long gone are the days of working locally and ftp it to server :crying_cat_face:
 Now most of the dev, test, deploy cycle can be automated.
 
 This is a personal take on removing overhead as much as possible and start working on any project right away and deploy with confidence.
-Customizations are kept as simple as possible.
+Customizations are kept simple and dumb.
 
 This repository acculumates best of what i've learned so far in this regard.
 
@@ -35,32 +35,32 @@ This starts [nginx](https://hub.docker.com/_/nginx/), [docker-gen](https://githu
 ## Documentation
 ### Folder Structure
 ```bash
-├── backend # backend project added as submodule in this repo
-├── certs # ssl certificates in here
-│   ├── letsencrypt # letsencrypt generated
-│   ├── local # locally generated using create-local-cert.sh
+├── backend                         # backend project added as submodule in this repo
+├── certs                           # ssl certificates in here
+│   ├── letsencrypt                 # letsencrypt generated
+│   ├── local                       # locally generated using create-local-cert.sh
 │   │   ├── create-local-ca.sh
 │   │   ├── create-local-cert.sh
-│   │   ├── .gitignore # only track bash scripts in here 
-├── conf.d # docker volume mounts here
+│   │   ├── .gitignore              # only track bash scripts in here 
+├── conf.d                          # docker volume mounts here
 │   ├── .gitgignore
-├── frontend # frontend project added as submodule in this repo
-├── html # docker volume mounts here
+├── frontend                        # frontend project added as submodule in this repo
+├── html                            # docker volume mounts here
 │   ├── .gitgignore
-├── scripts # Project operation scripts
-│   ├── down.py # stops containers defined in docker-compose files
-│   ├── init-project.py # bootstraps by changing config files for this and frontend and backend repo
-│   ├── log.py # logs output of **nginx-gen** container
-│   ├── up.py # starts containers defined in docker-compose files
+├── scripts                         # Project operation scripts
+│   ├── down.py                     # stops containers defined in docker-compose files
+│   ├── init-project.py             # bootstraps by changing config files for this and frontend and backend repo
+│   ├── log.py                      # logs output of **nginx-gen** container
+│   ├── up.py                       # starts containers defined in docker-compose files
 │   ├── utils.py  
 │   ├── .gitgignore
-├── vhost.d # docker volume mounts here
-├── .gitmodules # git submodule config
-├── docker-compose.override.yml # development configs
-├── docker-compose.production.yml # production configs
-├── docker-compose.yml # common configs
+├── vhost.d                         # docker volume mounts here
+├── .gitmodules                     # git submodule config
+├── docker-compose.override.yml     # development configs
+├── docker-compose.production.yml   # production configs
+├── docker-compose.yml              # common configs
 ├── LICENSE
-├── nginx.tmpl # downloaded from https://raw.githubusercontent.com/jwilder/docker-gen/master/templates/nginx.tmpl
+├── nginx.tmpl                      # downloaded from https://raw.githubusercontent.com/jwilder/docker-gen/master/templates/nginx.tmpl
 ├── README.md
 ```
 
