@@ -1,5 +1,5 @@
 # fullstack docker container kit 
-### Work in Progress 
+### ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Work in Progress 
 **updated: sep 1, 2018**
 
 An opnionated boilerplate to start building a full stack web application.
@@ -64,7 +64,7 @@ This starts [nginx](https://hub.docker.com/_/nginx/), [docker-gen](https://githu
 ├── README.md
 ```
 
-### Quick Start
+## Quick Start
 
 ```bash
 # Clone the repository
