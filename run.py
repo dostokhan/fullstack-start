@@ -11,7 +11,7 @@ import utils
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-environment", help="Run in Production Config", default="development")
-parser.add_argument("-withproxy", help="Run in Production Config", default="n")
+parser.add_argument("-withproxy", help="Run in Production Config", default="no")
 args = parser.parse_args()
 
 isProduction = args.environment == 'production'

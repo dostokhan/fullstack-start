@@ -63,7 +63,7 @@ def selectProject(task, isProduction):
 
 def doFrontend(task, isProduction):
     print('DO FRONTEND');
-    scriptFile = f"./backend/scripts/{task['action']}.py";
+    scriptFile = f"./frontend/scripts/{task['action']}.py";
     call(['python', scriptFile])
 
 def doBackend(task, isProduction):
