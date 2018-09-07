@@ -11,15 +11,6 @@ utils.goToParentDir()
 #      print("Production Config")
 #      stopProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.production.yml down'
 #  else:
-print("Development Config")
 stopProxyContainers = 'docker-compose -f docker-compose.yml -f docker-compose.override.yml down'
 call(stopProxyContainers.split())
-
-
-#  only in production run these from respective submodules
-print('Stopping Backend')
-call(['python', './backend/scripts/down.py'])
-
-print('Stopping Frontend')
-call(['python', './frontend/scripts/down.py'])
 
