@@ -10,7 +10,6 @@ stages:
 variables:
   CONTAINER_TEST_IMAGE: registry.gitlab.com/imonir/fullstack-start:$CI_BUILD_REF_NAME
   CONTAINER_RELEASE_IMAGE: registry.gitlab.com/imonir/fullstack-start:latest
-  NODE_ENV: "development"
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
@@ -18,7 +17,8 @@ before_script:
 build:
   stage: build
   script:
-    - docker build -t $CONTAINER_TEST_IMAGE .
+    # - docker build -t $CONTAINER_TEST_IMAGE .
+    - docker-compose -f docker-compose.yml -f docker-compose.production.yml  build -t $CONTAINER_TEST_IMAGE .
     - docker push $CONTAINER_TEST_IMAGE
   only:
     - master
