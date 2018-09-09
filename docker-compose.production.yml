@@ -1,19 +1,19 @@
 version: '3.3'
 
 services:
-  nginx-fullstack:
+  nginx:
     labels:
       com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     volumes:
       - ./certs/letsencrypt:/etc/nginx/certs:ro
 
-  nginx-gen-fullstack:
+  nginx-gen:
     volumes:
       - ./certs/letsencrypt:/etc/nginx/certs:ro
 
-  nginx-letsencrypt-fullstack:
+  nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: nginx-letsencrypt-fullstack
+    container_name: nginx-letsencrypt
     restart: unless-stopped
     volumes:
       - ./conf.d:/etc/nginx/conf.d
