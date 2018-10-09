@@ -1,6 +1,6 @@
 [submodule "frontend"]
 	path = frontend
-	url = ../../dostokhan/frontend-start.git
+	url = ../frontend-start.git
 [submodule "backend"]
 	path = backend
-	url = ../../dostokhan/backend-start.git
+	url = ../backend-start.git
