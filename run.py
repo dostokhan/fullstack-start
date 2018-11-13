@@ -1,33 +1,26 @@
 #!/usr/bin/env python
 
-import argparse
 from subprocess import call
-from sys import path
+import sys
 
-path.insert(0, './scripts')
-import utils
-
-
-
-parser = argparse.ArgumentParser()
-parser.add_argument("-environment", help="Run in Production Config", default="development")
-parser.add_argument("-withproxy", help="Run in Production Config", default="no")
-args = parser.parse_args()
-
-isProduction = args.environment == 'production'
-
-utils.printInfo("Environment ?")
-utils.printImportant(args.environment);
-utils.printInfo("WithProxy ?")
-utils.printImportant(args.withproxy);
+# argv[1] is task i.e.e up, down etc
+# argv[2] is environemnt for tasks(up, down) and container name for tasks(log, bash)
 
 
-task = utils.selectTask()
+if sys.argv[1] == 'up':
+  call(['bash', '-c', f"cd ./nginx-proxy && ./run.py up {sys.argv[2]}"])
+  call(['bash', '-c', f"cd ./frontend && ./run.py up"])
+  call(['bash', '-c', 'cd ./backend && ./run.py up'])
 
+elif sys.argv[1] == 'down':
+  call(['bash', '-c', f"cd ./nginx-proxy && ./run.py down {sys.argv[2]}"])
+  call(['bash', '-c', 'cd ./frontend && ./run.py down'])
+  call(['bash', '-c', 'cd ./backend && ./run.py down'])
 
-if args.withproxy == 'yes':
-    utils.doProxyContainers(task, isProduction)
+elif sys.argv[1] == 'log':
+    call(['bash', '-c', f"cd {sys.argv[2]} && ./run.py log"])
 
-
-utils.selectProject(task, isProduction)
-
+elif sys.argv[1] == 'bash':
+    call(['bash', '-c', f"cd {sys.argv[2]} && ./run.py bash"])
+else:
+    print('See ya :)')
