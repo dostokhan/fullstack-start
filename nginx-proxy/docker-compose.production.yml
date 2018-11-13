@@ -1,0 +1,34 @@
+version: "3.3"
+
+services:
+  nginx:
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    volumes:
+      - "letsecript_data:/etc/nginx/certs:rw"
+
+  docker-gen:
+    volumes:
+      - "letsencrypt_data:/etc/nginx/certs:rw"
+
+  nginx-letsencrypt:
+    image: "jrcs/letsencrypt-nginx-proxy-companion:1.9"
+    container_name: nginx-letsencrypt
+    restart: always
+    volumes:
+      - "proxy_confd_data:/etc/nginx/conf.d"
+      - "proxy_vhostd_data:/etc/nginx/vhost.d"
+      - "proxy_html_data:/usr/share/nginx/html"
+      - "letsencrypt_data:/etc/nginx/certs:rw"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    environment:
+      NGINX_DOCKER_GEN_CONTAINER: "docker-gen"
+      NGINX_PROXY_CONTAINER: "nginx"
+      # DEBUG: "true"
+      
+      
+volumes:
+  proxy_confd_data:
+  proxy_vhostd_data:
+  proxy_html_data:
+  letsecript_data:
