@@ -17,6 +17,6 @@ elif sys.argv[1] == 'down':
         call(['bash', '-c', 'docker-compose -f docker-compose.yml -f docker-compose.production.yml down'])
 
 elif sys.argv[1] == 'log':
-    call(['bash', '-c', 'docker-compose logs --follow nginx-gen'])
+    call(['bash', '-c', 'docker-compose logs --follow docker-gen'])
 else:
     print('See ya :)')

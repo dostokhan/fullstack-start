@@ -5,6 +5,6 @@ services:
     volumes:
       - "./volumes/certs:/etc/nginx/certs:ro"
 
-  nginx-gen:
+  docker-gen:
     volumes:
       - "./volumes/certs:/etc/nginx/certs:ro"

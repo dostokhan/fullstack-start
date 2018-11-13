@@ -22,14 +22,13 @@ services:
       - "proxy_confd_data:/etc/nginx/conf.d"
       - "proxy_vhostd_data:/etc/nginx/vhost.d"
       - "proxy_html_data:/usr/share/nginx/html"
-      - "proxy_templates_data:/etc/docker-gen/templates:rw"
+      - "./volumes/templates:/etc/docker-gen/templates:rw"
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
 
 volumes:
   proxy_confd_data:
   proxy_vhostd_data:
   proxy_html_data:
-  proxy_templates_data:
 
 networks:
   default:
