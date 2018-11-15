@@ -5,7 +5,7 @@ services:
     labels:
       com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     volumes:
-      - "letsecript_data:/etc/nginx/certs:rw"
+      - "letsencrypt_data:/etc/nginx/certs:rw"
 
   docker-gen:
     volumes:
@@ -31,4 +31,4 @@ volumes:
   proxy_confd_data:
   proxy_vhostd_data:
   proxy_html_data:
-  letsecript_data:
+  letsencrypt_data:
