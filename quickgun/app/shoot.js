@@ -1,13 +1,32 @@
+const childProcess = require('child_process');
 const {
   debugCommon,
   debugError,
 } = require('helpers/debugger');
 
 
-const shoot = (req, res) => {
-  debugCommon('Shoot');
+const deploy = (res, branch) => {
+  const nodeEnv = process.env.NODE_ENV;
+  childProcess.exec(`cd ./../ && ./deploy.py ${branch} ${nodeEnv}`, function(err, stdout, stderr){
+    if (err) {
+      console.error(err);
+      return res.send(500);
+    }
+    res.send(`Deployed ${branch}`);
+  });
+};
 
-  res.send(200);
+const shoot = (req, res) => {
+  const sender = req.body.sender;
+  const branch = req.body.ref;
+  debugCommon(`Sender: ${sender}`);
+  debugCommon(`Brach: ${branch}`);
+
+  if(branch.indexOf('release') > -1 && sender.login === githubUsername){
+    deploy(res, branch);
+  } else {
+    res.send(`Not Deploying ${branch}`);
+  }
 };
 
 module.exports = shoot;

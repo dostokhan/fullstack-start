@@ -4,7 +4,7 @@
   "description": "webhook for stylinecollection.com",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_PATH=. DEBUG='app:*' DEBUG_COLORS=true nodemon index.js",
+    "start": "NODE_PATH=. DEBUG='app:*' DEBUG_COLORS=true node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "child_process": "^1.0.2",
     "cookie-parser": "^1.4.3",
     "debug": "^4.1.0",
     "express": "^4.16.4",
