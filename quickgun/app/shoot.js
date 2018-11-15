@@ -22,7 +22,7 @@ const shoot = (req, res) => {
   debugCommon(`Sender: ${sender}`);
   debugCommon(`Brach: ${branch}`);
 
-  if(branch.indexOf('release') > -1 && sender.login === githubUsername){
+  if(branch.indexOf('release') > -1){
     deploy(res, branch);
   } else {
     res.send(`Not Deploying ${branch}`);

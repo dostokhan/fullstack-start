@@ -12,7 +12,7 @@ services:
       - "letsencrypt_data:/etc/nginx/certs:rw"
 
   nginx-letsencrypt:
-    image: "jrcs/letsencrypt-nginx-proxy-companion:1.9"
+    image: "jrcs/letsencrypt-nginx-proxy-companion:v1.9"
     container_name: nginx-letsencrypt
     restart: always
     volumes:
