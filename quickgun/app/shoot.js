@@ -17,7 +17,7 @@ const verifyGitHub = (req) => {
   const theirSignature = req.get('X-Hub-Signature');
   const payload = JSON.stringify(req.body);
   const ourSignature = `sha1=${crypto.createHmac('sha1', secret).update(payload).digest('hex')}`
-  return crypto.timingSafeEqual(Buffer.from(theirSignature), Buffer.from(oursignature));
+  return crypto.timingSafeEqual(Buffer.from(theirSignature), Buffer.from(ourSignature));
 };
 
 const deploy = (res, branch) => {
