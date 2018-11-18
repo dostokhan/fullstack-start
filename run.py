@@ -8,12 +8,12 @@ import sys
 
 
 if sys.argv[1] == 'up':
-  call(['bash', '-c', f"cd ./nginx-proxy && ./run.py up {sys.argv[2]}"])
+  #  call(['bash', '-c', f"cd ./nginx-proxy && ./run.py up {sys.argv[2]}"])
   #  call(['bash', '-c', f"cd ./frontend && ./run.py up"])
   call(['bash', '-c', 'cd ./backend && ./run.py up all'])
 
 elif sys.argv[1] == 'down':
-  call(['bash', '-c', f"cd ./nginx-proxy && ./run.py down {sys.argv[2]}"])
+  #  call(['bash', '-c', f"cd ./nginx-proxy && ./run.py down {sys.argv[2]}"])
   #  call(['bash', '-c', 'cd ./frontend && ./run.py down'])
   call(['bash', '-c', 'cd ./backend && ./run.py down all'])
 
