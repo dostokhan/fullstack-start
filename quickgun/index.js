@@ -4,6 +4,10 @@ const {
   debugInit,
 } = require('helpers/debugger');
 
+const {
+  port,
+  nodeEnv,
+} = require('config/vars');
 
 
 /**
@@ -12,7 +16,7 @@ const {
 const server = require('config/express');
 
 
-server.listen(4200, () => {
-  debugInit(`NODE_ENV: ${process.env.NODE_ENV}`);
+server.listen(port, () => {
+  debugInit(`NODE_ENV: ${nodeEnv}`);
   debugInit('we are ready :)');
 });
