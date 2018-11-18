@@ -4,12 +4,13 @@ const {
   debugError,
 } = require('helpers/debugger');
 
+const SECRET = 'quickgun-murugan';
 
 const deploy = (res, branch) => {
   const nodeEnv = process.env.NODE_ENV;
-  childProcess.exec(`cd ./../ && ./deploy.py ${branch} ${nodeEnv}`, function(err, stdout, stderr){
+  childProcess.exec(`cd ./../../ && ./deploy.py ${branch} ${nodeEnv}`, function(err, stdout, stderr){
     if (err) {
-      console.error(err);
+      debugError(err);
       return res.send(500);
     }
     res.send(`Deployed ${branch}`);
@@ -23,7 +24,12 @@ const shoot = (req, res) => {
   debugCommon(`Brach: ${branch}`);
 
   if(branch.indexOf('release') > -1){
-    deploy(res, branch);
+    const secretHeader = req.get('X-Hub-Signature');
+    if (secretHeader === SECRET) {
+      deploy(res, branch);
+    } else {
+      debugError(`Secret missmatch: ${secretHeader}`);
+    }
   } else {
     res.send(`Not Deploying ${branch}`);
   }
