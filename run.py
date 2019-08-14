@@ -1,26 +1,65 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.6
+
 
 from subprocess import call
+from pathlib import Path
 import sys
 
-# argv[1] is task i.e.e up, down etc
-# argv[2] is environemnt for tasks(up, down) and container name for tasks(log, bash)
 
 
-if sys.argv[1] == 'up':
-  call(['bash', '-c', f"cd ./nginx-proxy && ./run.py up {sys.argv[2]}"])
-  #  call(['bash', '-c', f"cd ./frontend && ./run.py up"])
-  call(['bash', '-c', 'cd ./backend && ./run.py up all'])
+TASK = sys.argv[1]
+ENVIRONMENT = Path('.env.run').read_text().rstrip()
+NETWORK = 'fullstack'
 
-elif sys.argv[1] == 'down':
-  call(['bash', '-c', f"cd ./nginx-proxy && ./run.py down {sys.argv[2]}"])
-  #  call(['bash', '-c', 'cd ./frontend && ./run.py down'])
-  call(['bash', '-c', 'cd ./backend && ./run.py down all'])
+CONTAINER = sys.argv[2] if len(sys.argv) > 2 else 'nginx'
+COMPOSE_FILES = ' -f docker-compose.yml -f docker-compose.production.yml ' if ENVIRONMENT == 'production' \
+    else ' -f docker-compose.yml -f docker-compose.override.yml '
 
-elif sys.argv[1] == 'log':
-    call(['bash', '-c', f"cd {sys.argv[2]} && ./run.py log"])
+print('ENVIRONMENT: ' + ENVIRONMENT)
+print('COMPOSE FILES: ' + COMPOSE_FILES)
 
-elif sys.argv[1] == 'bash':
-    call(['bash', '-c', f"cd {sys.argv[2]} && ./run.py bash"])
+def netUp():
+    call(['bash', '-c', f"docker network create --subnet=172.28.0.0/16 {NETWORK}"])
+def netDown():
+    call(['bash', '-c', f"docker network rm {NETWORK}"])
+
+def up():
+    call(['bash', '-c', 'docker-compose ' + COMPOSE_FILES + ' up -d '])
+
+def down():
+    call(['bash', '-c', 'docker-compose ' + COMPOSE_FILES + ' down'])
+
+def build():
+    call(['bash', '-c', 'docker-compose ' + COMPOSE_FILES + ' build '])
+
+def log():
+    call(['bash', '-c', f"sudo tail -f ./volumes/log/{CONTAINER}/container.log"])
+
+def bash():
+    call(['bash', '-c', f"docker-compose {COMPOSE_FILES} exec {CONTAINER} bash"])
+
+if TASK == 'up':
+    netUp()
+    up()
+elif TASK == 'down':
+    down()
+    netDown()
+elif TASK == 'log':
+    log()
+elif TASK == 'bash':
+    bash()
+elif TASK == 'dup':
+    down()
+    up()
+elif TASK == 'bup':
+    down()
+    build()
+    up()
 else:
-    print('See ya :)')
+    call(['bash', '-c', 'echo "See ya :)"'])
+
+
+
+
+
+

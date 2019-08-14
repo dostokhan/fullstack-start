@@ -1,11 +1,13 @@
-version: "3.3"
+version: "3.5"
 
 services:
-  nginx:
+  docker-gen:
+    restart: "no"
     volumes:
-      - ./certs/local:/etc/nginx/certs:ro
+      - "./volumes/certs/local:/etc/nginx/certs:ro"
 
-  nginx-gen:
+  nginx:
+    restart: "no"
     volumes:
-      - ./certs/local:/etc/nginx/certs:ro
+      - "./volumes/certs/local:/etc/nginx/certs:ro"
 
