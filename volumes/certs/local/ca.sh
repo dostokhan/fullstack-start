@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -eu
-org=localhost-rootca
+org=localhost-imonir
 
 sudo trust anchor --remove ca.crt || true
 

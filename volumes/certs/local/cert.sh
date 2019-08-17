@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -eu
-org=localhost-rootca
+org=localhost-imonir
 
 openssl genpkey -algorithm RSA -out "$1".key
 openssl req -new -key "$1".key -out "$1".csr \
