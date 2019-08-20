@@ -75,6 +75,28 @@ services:
         tag: "logrotate"
         syslog-address: "tcp://localhost:5555"
 
+
+  #######################################
+  # Cache concentrator (redis)
+  #######################################
+  redis:
+    container_name: redis
+    # image: "redis:5"
+    build:
+      context: ./dockerfiles/redis
+    env_file:
+      - .env.redis
+    restart: "always"
+    expose:
+      - 6379
+    volumes:
+      - 'redis_data:/data'
+    logging:
+      driver: syslog
+      options:
+        tag: redis
+        syslog-address: "tcp://localhost:5555"
+
   #######################################
   # Log concentrator (rsyslog)
   #######################################
@@ -90,6 +112,11 @@ services:
     volumes:
       - "./volumes/log:/var/log"
       - "./volumes/rsyslog.d:/etc/rsyslog.d"
+
+
+volumes:
+  redis_data:
+
 
 
 networks:
