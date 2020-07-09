@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 
 #  from subprocess import call
 from pathlib import Path
@@ -33,6 +33,9 @@ envDockergen = f"COMPOSE_PROJECT_NAME={PROJECT_NAME}"
 
 # nginx env file
 envNginx = f"COMPOSE_PROJECT_NAME={PROJECT_NAME}"
+
+# nginx env file
+envRedis = f"COMPOSE_PROJECT_NAME={PROJECT_NAME}"
 
 # nginx env file
 envLetsencrypt = f"COMPOSE_PROJECT_NAME={PROJECT_NAME}\n"\
@@ -75,6 +78,10 @@ with open('./.env.logrotate', 'w+') as f:
 with open('./.env.rsyslog', 'w+') as f:
     print('Creating ./.env.rsyslog')
     f.write(envRsyslog)
+
+with open('./.env.redis', 'w+') as f:
+    print('Creating ./.env.redis')
+    f.write(envRedis)
 
 
 print("\n")
